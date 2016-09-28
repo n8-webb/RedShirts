@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerControl : MonoBehaviour {
 
     public float playerSpeed;
+    public float jumpStrength;
 
     public int playerID;
 
@@ -37,6 +38,7 @@ public class PlayerControl : MonoBehaviour {
             }
 
         }
+
         //if (Input.GetKey(KeyCode.D))
         //{
         //    transform.position += Vector3.right * playerSpeed * Time.deltaTime;
