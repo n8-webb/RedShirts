@@ -13,12 +13,13 @@ public class PlayerControl : MonoBehaviour {
     public float horizontal;
     public float jump;
 
+    public LayerMask mask;
+
     public bool grounded;
 
 
     Rigidbody2D rb2d;
     BoxCollider2D box2d;
-    RaycastHit2D hit;
 
     // Use this for initialization
     void Start () {
@@ -28,19 +29,17 @@ public class PlayerControl : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        grounded = true;
         if (jump == -1)
         {
             if (col.transform.gameObject.tag == "Platform")
             {
-                box2d.isTrigger = false;
+                box2d.enabled = false;
             }
         }
     }
 
     void OnTriggerStay2D(Collider2D col)
     {
-        grounded = true;
         if (jump == -1)
         {
             if (col.transform.gameObject.tag == "Platform")
@@ -52,13 +51,25 @@ public class PlayerControl : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D col)
     {
-        grounded = false;
-        box2d.enabled = true;
+        if (col.transform.gameObject.tag == "Platform")
+        {
+            box2d.enabled = true;
+        }
     }
     // Update is called once per frame
 
     void FixedUpdate()
     {
+
+        if (Physics2D.Raycast(transform.position, -Vector2.up, 0.52f, mask))
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+
         jumpPower = 300;
 
         if (rb2d.velocity.y > 0)
