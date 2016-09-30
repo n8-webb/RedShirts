@@ -17,26 +17,43 @@ public class PlayerControl : MonoBehaviour {
 
 
     Rigidbody2D rb2d;
+    BoxCollider2D box2d;
     RaycastHit2D hit;
 
     // Use this for initialization
     void Start () {
         rb2d = GetComponent<Rigidbody2D>();
+        box2d = GetComponent<BoxCollider2D>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         grounded = true;
+        if (jump == -1)
+        {
+            if (col.transform.gameObject.tag == "Platform")
+            {
+                box2d.isTrigger = false;
+            }
+        }
     }
 
     void OnTriggerStay2D(Collider2D col)
     {
         grounded = true;
+        if (jump == -1)
+        {
+            if (col.transform.gameObject.tag == "Platform")
+            {
+                box2d.enabled = false;
+            }
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
         grounded = false;
+        box2d.enabled = true;
     }
     // Update is called once per frame
 
