@@ -54,6 +54,11 @@ public class PlayerControl : MonoBehaviour {
 
         jump = Input.GetAxis(jumpButton);
 
+        if (jump == 1 && grounded == true)
+        {
+            rb2d.AddForce(Vector2.up * jumpPower);
+        }
+
         if (horizontal == -1)
         {
             transform.position += Vector3.left * playerSpeed * Time.deltaTime;
@@ -64,10 +69,7 @@ public class PlayerControl : MonoBehaviour {
             transform.position += Vector3.right * playerSpeed * Time.deltaTime;
         }
 
-        else if (jump == 1 && grounded == true)
-        {
-            rb2d.AddForce(Vector2.up * jumpPower);
-        }
+        
 
     }
 
