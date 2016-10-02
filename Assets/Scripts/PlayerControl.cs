@@ -3,41 +3,52 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
 
-    public float playerSpeed;
+    public int playerSpeed = 5;
+
+    //Change these depending on what player it is in the inspector window
 
     public string jumpButton = "Jump_P1";
     public string horizontalCtrl = "Horizontal_P1";
-    public string playerGunSprite = "weaponSprite_P1";
-    public string gunObject = "testWeapon_P1";
+    public string playerJumpSprite = "player jump red";
+    public string playerIdleSprite = "player idle red";
 
-    public int jumpPower;
+    //Strength of the jump
+
+    public int jumpPower = 300;
+
+    //Values for the controller
 
     public float horizontal;
     public float jump;
 
+    //Allows raycast to ignore the player itself
+
     public LayerMask mask;
+
+    //Is the player on the ground?
 
     public bool grounded;
 
-    aimDirection aim;
+    //Unity stuff
 
     Rigidbody2D rb2d;
     PolygonCollider2D poly2d;
-    SpriteRenderer thisPlayerSprite;
-    SpriteRenderer gunSprite;
-    GameObject playerGun;
-    GameObject playerGunObject;
+    SpriteRenderer playerSprite;
+    Sprite[] jumpSprite;
+    Sprite[] idleSprite;
 
     // Use this for initialization
     void Start () {
-        playerGunObject = GameObject.Find(gunObject);
-        aim = playerGunObject.GetComponent<aimDirection>();
-        playerGun = GameObject.Find(playerGunSprite);
+
+        //Fetch the unity stuff
         rb2d = GetComponent<Rigidbody2D>();
         poly2d = GetComponent<PolygonCollider2D>();
-        thisPlayerSprite = GetComponent<SpriteRenderer>();
-        gunSprite = playerGun.GetComponent<SpriteRenderer>();
+        playerSprite = GetComponent<SpriteRenderer>();
+        jumpSprite = Resources.LoadAll<Sprite>(playerJumpSprite);
+        idleSprite = Resources.LoadAll<Sprite>(playerIdleSprite);
     }
+
+    //Trigger stuff for the falling through platform on down press
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -72,59 +83,41 @@ public class PlayerControl : MonoBehaviour {
 
     void FixedUpdate()
     {
-
-        if (Physics2D.Raycast(transform.position, -Vector2.up, 1.22f, mask))
+        //Casts a raycast ignoring the player to check if grounded
+        if (Physics2D.Raycast(transform.position, -Vector2.up, 1.0f, mask))
         {
             grounded = true;
-;        }
+            playerSprite.sprite = idleSprite[0];
+        }
         else
         {
             grounded = false;
+            playerSprite.sprite = jumpSprite[0];
         }
 
-        jumpPower = 300;
-
-        if (rb2d.velocity.y > 0)
-        {
-            grounded = false;
-        }
-        playerSpeed = 5.0f;
-
+        //Fetches the values from the controller and keyboard presses
         horizontal = Input.GetAxis(horizontalCtrl);
 
         jump = Input.GetAxis(jumpButton);
 
-        if (jump == 1 && grounded == true)
+
+        //Adds force to the player's rigid body in the up direction
+        if (jump == 1 && grounded == true && rb2d.velocity.y == 0)
         {
             rb2d.AddForce(Vector2.up * jumpPower);
         }
-
-        if (horizontal == -1)
-        {
-            
-            transform.position += Vector3.left * playerSpeed * Time.deltaTime;
-            if (aim.aimAngle == 0)
-            {
-                Debug.Log("Test");
-                gunSprite.flipX = true;
-                thisPlayerSprite.flipX = true;
-
-            }
-        }
-
-        else if (horizontal == 1)
-        {
-            
-            transform.position += Vector3.right * playerSpeed * Time.deltaTime;
-            
-            if (aim.aimAngle == 0)
-            {
-                gunSprite.flipX = false;
-                thisPlayerSprite.flipX = false;
-            }
-        }
-
         
+        //Moves the player in the left direction
+        if (horizontal == -1)
+        {            
+            transform.position += Vector3.left * playerSpeed * Time.deltaTime;
+        }
+
+        //Moves the player in the right direction
+        else if (horizontal == 1)
+        {   
+            transform.position += Vector3.right * playerSpeed * Time.deltaTime;
+        }
 
     }
 
