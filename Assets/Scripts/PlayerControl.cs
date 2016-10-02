@@ -19,12 +19,12 @@ public class PlayerControl : MonoBehaviour {
 
 
     Rigidbody2D rb2d;
-    BoxCollider2D box2d;
+    PolygonCollider2D poly2d;
 
     // Use this for initialization
     void Start () {
         rb2d = GetComponent<Rigidbody2D>();
-        box2d = GetComponent<BoxCollider2D>();
+        poly2d = GetComponent<PolygonCollider2D>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -33,7 +33,7 @@ public class PlayerControl : MonoBehaviour {
         {
             if (col.transform.gameObject.tag == "Platform")
             {
-                box2d.enabled = false;
+                poly2d.enabled = false;
             }
         }
     }
@@ -44,7 +44,7 @@ public class PlayerControl : MonoBehaviour {
         {
             if (col.transform.gameObject.tag == "Platform")
             {
-                box2d.enabled = false;
+                poly2d.enabled = false;
             }
         }
     }
@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour {
     {
         if (col.transform.gameObject.tag == "Platform")
         {
-            box2d.enabled = true;
+            poly2d.enabled = true;
         }
     }
     // Update is called once per frame
