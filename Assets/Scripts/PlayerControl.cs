@@ -61,10 +61,10 @@ public class PlayerControl : MonoBehaviour {
     void FixedUpdate()
     {
 
-        if (Physics2D.Raycast(transform.position, -Vector2.up, 0.52f, mask))
+        if (Physics2D.Raycast(transform.position, -Vector2.up, 1.22f, mask))
         {
             grounded = true;
-        }
+;        }
         else
         {
             grounded = false;
