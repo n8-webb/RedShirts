@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour {
 
     public string jumpButton = "Jump_P1";
     public string horizontalCtrl = "Horizontal_P1";
+    public string playerGunSprite = "weaponSprite_P1";
+    public string gunObject = "testWeapon_P1";
 
     public int jumpPower;
 
@@ -17,14 +19,24 @@ public class PlayerControl : MonoBehaviour {
 
     public bool grounded;
 
+    aimDirection aim;
 
     Rigidbody2D rb2d;
     PolygonCollider2D poly2d;
+    SpriteRenderer thisPlayerSprite;
+    SpriteRenderer gunSprite;
+    GameObject playerGun;
+    GameObject playerGunObject;
 
     // Use this for initialization
     void Start () {
+        playerGunObject = GameObject.Find(gunObject);
+        aim = playerGunObject.GetComponent<aimDirection>();
+        playerGun = GameObject.Find(playerGunSprite);
         rb2d = GetComponent<Rigidbody2D>();
         poly2d = GetComponent<PolygonCollider2D>();
+        thisPlayerSprite = GetComponent<SpriteRenderer>();
+        gunSprite = playerGun.GetComponent<SpriteRenderer>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -89,12 +101,27 @@ public class PlayerControl : MonoBehaviour {
 
         if (horizontal == -1)
         {
+            
             transform.position += Vector3.left * playerSpeed * Time.deltaTime;
+            if (aim.aimAngle == 0)
+            {
+                Debug.Log("Test");
+                gunSprite.flipX = true;
+                thisPlayerSprite.flipX = true;
+
+            }
         }
 
         else if (horizontal == 1)
         {
+            
             transform.position += Vector3.right * playerSpeed * Time.deltaTime;
+            
+            if (aim.aimAngle == 0)
+            {
+                gunSprite.flipX = false;
+                thisPlayerSprite.flipX = false;
+            }
         }
 
         
