@@ -24,4 +24,10 @@ public class BaseGunClass : MonoBehaviour {
         public bool canBounce;
         public bool isFiring;
     }
+
+    public void fire(PlayerControl player)
+    {
+        //temp spawn bulet each tick at weapon location
+        Instantiate(player.bullet, player.weapon.transform.position, Quaternion.identity);
+    }
 }

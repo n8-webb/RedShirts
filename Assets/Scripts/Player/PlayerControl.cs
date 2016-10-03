@@ -21,6 +21,10 @@ public class PlayerControl : MonoBehaviour {
     //Character Actions
     public characterAction actions;
 
+    //Players Weapon
+    public GameObject weapon;
+    public GameObject bullet;
+
 
     //Values for the controller
     public float horizontal;
@@ -151,21 +155,13 @@ public class PlayerControl : MonoBehaviour {
         //Player Shoot (Click or Right Trigger)
         if (fire == 1)
         {
-            //Find the players gun
-            GameObject playerGun;
-            playerGun = GameObject.Find("testWeapon_P1");
-
-            actions.playerFire(this, playerGun);
+            actions.playerFire(this);
         }
 
         //Player Reload (Q or Right Bumper)
         if (reload == 1)
         {
-            //Find the players gun
-            GameObject playerGun;
-            playerGun = GameObject.Find("testWeapon_P1");
-
-            actions.playerReload(this, playerGun);
+            actions.playerReload(this);
         }
     }
 
