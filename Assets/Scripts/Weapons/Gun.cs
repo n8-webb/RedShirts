@@ -20,9 +20,12 @@ public class Gun : MonoBehaviour
     public  float shotsRemaining;
     public float currMagSize;
 
+    public PlayerControl player;
+
     void Start()
     {
         currMagSize = magSize;
+        player = transform.GetComponentInParent<PlayerControl>();
     }
 
     void Update()
@@ -38,6 +41,7 @@ public class Gun : MonoBehaviour
             //    {
                     nextShot = Time.time + fireRate;
                     bulletScript newBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation) as bulletScript;
+                    newBullet.transform.GetComponent<bulletScript>().ownerID = player.stats.playerId;
                     newBullet.speed = bulletSpeed;
                     //currMagSize = (currMagSize - 1.0f);
                     
