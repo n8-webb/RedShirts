@@ -30,15 +30,15 @@ public class characterAction : MonoBehaviour
     }
 
     // Called when a player dies
-    void playerDie()
+    public void playerDie(int killerID)
     {
-
+        Debug.Log("I am Player (" + transform.GetComponent<playerStats>().playerId + ") and have been killed by Player (" + killerID + ")");
     }
 
     // Called when a player starts crouching
     public void playerCrouch(PlayerControl player)
     {
-        player.crouching = true;
+        player.stats.crouching = true;
         //Change player sprite here//
 
 
@@ -47,7 +47,7 @@ public class characterAction : MonoBehaviour
     //Called when a player stops crouching
     public void playerStand(PlayerControl player)
     {
-        player.crouching = false;
+        player.stats.crouching = false;
         //Change player sprite here//
 
 
@@ -65,7 +65,6 @@ public class characterAction : MonoBehaviour
     {
         //Call weapons fire function
         player.weapon.GetComponent<BaseGunClass>().fire(player);
-        
 
         //Add visual fire effects
     }

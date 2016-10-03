@@ -21,6 +21,10 @@ public class PlayerControl : MonoBehaviour {
     //Character Actions
     public characterAction actions;
 
+    //Player Stats
+    public playerStats stats;
+
+
     //Players Weapon
     public GameObject weapon;
     public GameObject bullet;
@@ -59,6 +63,7 @@ public class PlayerControl : MonoBehaviour {
         jumpSprite = Resources.LoadAll<Sprite>(playerJumpSprite);
         idleSprite = Resources.LoadAll<Sprite>(playerIdleSprite);
         actions = gameObject.AddComponent<characterAction>() as characterAction;
+        stats = GetComponent<playerStats>();
     }
 
     //Trigger stuff for the falling through platform on down press
@@ -98,12 +103,12 @@ public class PlayerControl : MonoBehaviour {
         //Casts a raycast ignoring the player to check if grounded
         if (Physics2D.Raycast(transform.position, -Vector2.up, 1.0f, mask))
         {
-            grounded = true;
+            stats.grounded = true;
             playerSprite.sprite = idleSprite[0];
         }
         else
         {
-            grounded = false;
+            stats.grounded = false;
             playerSprite.sprite = jumpSprite[0];
         }
 
@@ -121,7 +126,7 @@ public class PlayerControl : MonoBehaviour {
 
 
         //Adds force to the player's rigid body in the up direction
-        if (jump == 1 && grounded == true && rb2d.velocity.y == 0)
+        if (jump == 1 && stats.grounded == true && rb2d.velocity.y == 0)
         {
             rb2d.AddForce(Vector2.up * jumpPower);
         }
@@ -140,13 +145,13 @@ public class PlayerControl : MonoBehaviour {
 
 
         //Player crouch (E or B-Button)
-        if (crouch == 1 && !crouching)
+        if (crouch == 1 && !stats.crouching)
         {
             actions.playerCrouch(this);
         }
 
         //Player stand
-        if (crouching && crouch != 1)
+        if (stats.crouching && crouch != 1)
         {
             actions.playerStand(this);
         }
