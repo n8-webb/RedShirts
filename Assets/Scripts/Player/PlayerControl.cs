@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour {
 
     //Strength of the jump
     public int jumpPower = 150;
+    public float maxSpeed = 15.0f;
 
     //Character Actions
     public characterAction actions;
@@ -39,7 +40,7 @@ public class PlayerControl : MonoBehaviour {
 
     //Unity stuff
     Rigidbody2D rb2d;
-    PolygonCollider2D poly2d;
+    BoxCollider2D box2d;
     SpriteRenderer playerSprite;
     Sprite[] jumpSprite;
     Sprite[] idleSprite;
@@ -49,7 +50,7 @@ public class PlayerControl : MonoBehaviour {
 
         //Fetch the unity stuff
         rb2d = GetComponent<Rigidbody2D>();
-        poly2d = GetComponent<PolygonCollider2D>();
+        box2d = GetComponent<BoxCollider2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         jumpSprite = Resources.LoadAll<Sprite>(playerJumpSprite);
         idleSprite = Resources.LoadAll<Sprite>(playerIdleSprite);
@@ -63,7 +64,7 @@ public class PlayerControl : MonoBehaviour {
         {
             if (col.transform.gameObject.tag == "Platform")
             {
-                poly2d.enabled = false;
+                box2d.enabled = false;
             }
         }
     }
@@ -74,7 +75,7 @@ public class PlayerControl : MonoBehaviour {
         {
             if (col.transform.gameObject.tag == "Platform")
             {
-                poly2d.enabled = false;
+                box2d.enabled = false;
             }
         }
     }
@@ -83,7 +84,7 @@ public class PlayerControl : MonoBehaviour {
     {
         if (col.transform.gameObject.tag == "Platform")
         {
-            poly2d.enabled = true;
+            box2d.enabled = true;
         }
     }
     // Update is called once per frame
@@ -100,6 +101,11 @@ public class PlayerControl : MonoBehaviour {
         {
             grounded = false;
             playerSprite.sprite = jumpSprite[0];
+        }
+
+        if (rb2d.velocity.magnitude > maxSpeed)
+        {
+            rb2d.velocity = rb2d.velocity.normalized * maxSpeed;
         }
 
         //Fetches the values from the controller and keyboard presses
