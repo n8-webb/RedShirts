@@ -13,38 +13,37 @@ public class characterAction : MonoBehaviour
 
     float timer = 0.0f;
 
-    SpriteRenderer playerSprite;
-    SpriteRenderer weaponSprite;
     GameObject respawnLocationObject;
     GameObject weaponSpriteObject;
+    GameObject playerObject;
+
 
 
     // Use this for initialization
     void Start()
     {
         isAlive = true;
-        playerSprite = gameObject.GetComponent<SpriteRenderer>();
+        playerObject = GameObject.Find("testplayer_P1");
         switch (transform.GetComponent<playerStats>().playerId)
         {
             case 1:
                 respawnLocationObject = GameObject.Find("respawnLocation_P1");
-                weaponSpriteObject = GameObject.Find("weaponSprite_P1");
-                
+                playerObject = GameObject.Find("testPlayer_P1");
                 break;
             case 2:
                 respawnLocationObject = GameObject.Find("respawnLocation_P2");
-                weaponSpriteObject = GameObject.Find("weaponSprite_P2");
+                playerObject = GameObject.Find("testPlayer_P2");
                 break;
             case 3:
                 respawnLocationObject = GameObject.Find("respawnLocation_P3");
-                weaponSpriteObject = GameObject.Find("weaponSprite_P3");
+                playerObject = GameObject.Find("testPlayer_P3");
                 break;
             case 4:
                 respawnLocationObject = GameObject.Find("respawnLocation_P4");
-                weaponSpriteObject = GameObject.Find("weaponSprite_P4");
+                playerObject = GameObject.Find("testPlayer_P4");
                 break;
         }
-        weaponSprite = weaponSpriteObject.GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
@@ -56,9 +55,9 @@ public class characterAction : MonoBehaviour
 
             if (timer >= deathTimer)
             {
-                transform.position = respawnLocationObject.transform.position;
-                playerSprite.enabled = true;
-                weaponSprite.enabled = true;
+                Debug.Log(playerObject.transform.position);
+                Debug.Log(respawnLocationObject.transform.position);
+                playerObject.transform.position = respawnLocationObject.transform.position;
                 timer = 0.0f;
                 isAlive = true;
             }
@@ -76,8 +75,7 @@ public class characterAction : MonoBehaviour
     {
         isAlive = false;
         Debug.Log("I am Player (" + transform.GetComponent<playerStats>().playerId + ") and have been killed by Player (" + killerID + ")");
-        playerSprite.enabled = false;
-        weaponSprite.enabled = false;
+        transform.position = new Vector3(100, -10, 0);
         playerDeaths++;       
     }
 
