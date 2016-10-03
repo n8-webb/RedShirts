@@ -6,31 +6,25 @@ public class PlayerControl : MonoBehaviour {
     public int playerSpeed = 5;
 
     //Change these depending on what player it is in the inspector window
-
     public string jumpButton = "Jump_P1";
     public string horizontalCtrl = "Horizontal_P1";
     public string playerJumpSprite = "player jump red";
     public string playerIdleSprite = "player idle red";
 
     //Strength of the jump
-
     public int jumpPower = 300;
 
     //Values for the controller
-
     public float horizontal;
     public float jump;
 
     //Allows raycast to ignore the player itself
-
     public LayerMask mask;
 
     //Is the player on the ground?
-
     public bool grounded;
 
     //Unity stuff
-
     Rigidbody2D rb2d;
     PolygonCollider2D poly2d;
     SpriteRenderer playerSprite;
@@ -49,7 +43,6 @@ public class PlayerControl : MonoBehaviour {
     }
 
     //Trigger stuff for the falling through platform on down press
-
     void OnTriggerEnter2D(Collider2D col)
     {
         if (jump == -1)
@@ -97,7 +90,6 @@ public class PlayerControl : MonoBehaviour {
 
         //Fetches the values from the controller and keyboard presses
         horizontal = Input.GetAxis(horizontalCtrl);
-
         jump = Input.GetAxis(jumpButton);
 
 
