@@ -9,8 +9,6 @@ public class characterAction : MonoBehaviour
     public bool crouching;
     public bool isReloading;
 
-
-
     // Use this for initialization
     void Start()
     {
@@ -30,15 +28,15 @@ public class characterAction : MonoBehaviour
     }
 
     // Called when a player dies
-    public void playerDie(int killerID)
+    void playerDie()
     {
-        Debug.Log("I am Player (" + transform.GetComponent<playerStats>().playerId + ") and have been killed by Player (" + killerID + ")");
+
     }
 
     // Called when a player starts crouching
     public void playerCrouch(PlayerControl player)
     {
-        player.stats.crouching = true;
+        player.crouching = true;
         //Change player sprite here//
 
 
@@ -47,25 +45,23 @@ public class characterAction : MonoBehaviour
     //Called when a player stops crouching
     public void playerStand(PlayerControl player)
     {
-        player.stats.crouching = false;
+        player.crouching = false;
         //Change player sprite here//
 
 
     }
 
     // Called when a player is reloading
-    public void playerReload(PlayerControl player)
+    public void playerReload(PlayerControl player, GameObject gun)
     {
         //Call guns reload action
         //Change gun to reload sprite
     }
 
     // Called when a player fires
-    public void playerFire(PlayerControl player)
+    public void playerFire(PlayerControl player, GameObject gun)
     {
-        //Call weapons fire function
-        player.weapon.GetComponent<BaseGunClass>().fire(player);
-
+        //Call guns fire function
         //Add visual fire effects
     }
 }

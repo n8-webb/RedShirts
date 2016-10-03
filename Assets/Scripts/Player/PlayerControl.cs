@@ -16,18 +16,9 @@ public class PlayerControl : MonoBehaviour {
 
     //Strength of the jump
     public int jumpPower = 150;
-    public float maxSpeed = 15.0f;
 
     //Character Actions
     public characterAction actions;
-
-    //Player Stats
-    public playerStats stats;
-
-
-    //Players Weapon
-    public GameObject weapon;
-    public GameObject bullet;
 
 
     //Values for the controller
@@ -48,7 +39,7 @@ public class PlayerControl : MonoBehaviour {
 
     //Unity stuff
     Rigidbody2D rb2d;
-    BoxCollider2D box2d;
+    PolygonCollider2D poly2d;
     SpriteRenderer playerSprite;
     Sprite[] jumpSprite;
     Sprite[] idleSprite;
@@ -58,12 +49,11 @@ public class PlayerControl : MonoBehaviour {
 
         //Fetch the unity stuff
         rb2d = GetComponent<Rigidbody2D>();
-        box2d = GetComponent<BoxCollider2D>();
+        poly2d = GetComponent<PolygonCollider2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         jumpSprite = Resources.LoadAll<Sprite>(playerJumpSprite);
         idleSprite = Resources.LoadAll<Sprite>(playerIdleSprite);
         actions = gameObject.AddComponent<characterAction>() as characterAction;
-        stats = GetComponent<playerStats>();
     }
 
     //Trigger stuff for the falling through platform on down press
@@ -73,7 +63,7 @@ public class PlayerControl : MonoBehaviour {
         {
             if (col.transform.gameObject.tag == "Platform")
             {
-                box2d.enabled = false;
+                poly2d.enabled = false;
             }
         }
     }
@@ -84,7 +74,7 @@ public class PlayerControl : MonoBehaviour {
         {
             if (col.transform.gameObject.tag == "Platform")
             {
-                box2d.enabled = false;
+                poly2d.enabled = false;
             }
         }
     }
@@ -93,7 +83,7 @@ public class PlayerControl : MonoBehaviour {
     {
         if (col.transform.gameObject.tag == "Platform")
         {
-            box2d.enabled = true;
+            poly2d.enabled = true;
         }
     }
     // Update is called once per frame
@@ -103,18 +93,13 @@ public class PlayerControl : MonoBehaviour {
         //Casts a raycast ignoring the player to check if grounded
         if (Physics2D.Raycast(transform.position, -Vector2.up, 1.0f, mask))
         {
-            stats.grounded = true;
+            grounded = true;
             playerSprite.sprite = idleSprite[0];
         }
         else
         {
-            stats.grounded = false;
+            grounded = false;
             playerSprite.sprite = jumpSprite[0];
-        }
-
-        if (rb2d.velocity.magnitude > maxSpeed)
-        {
-            rb2d.velocity = rb2d.velocity.normalized * maxSpeed;
         }
 
         //Fetches the values from the controller and keyboard presses
@@ -126,7 +111,7 @@ public class PlayerControl : MonoBehaviour {
 
 
         //Adds force to the player's rigid body in the up direction
-        if (jump == 1 && stats.grounded == true && rb2d.velocity.y == 0)
+        if (jump == 1 && grounded == true && rb2d.velocity.y == 0)
         {
             rb2d.AddForce(Vector2.up * jumpPower);
         }
@@ -145,13 +130,13 @@ public class PlayerControl : MonoBehaviour {
 
 
         //Player crouch (E or B-Button)
-        if (crouch == 1 && !stats.crouching)
+        if (crouch == 1 && !crouching)
         {
             actions.playerCrouch(this);
         }
 
         //Player stand
-        if (stats.crouching && crouch != 1)
+        if (crouching && crouch != 1)
         {
             actions.playerStand(this);
         }
@@ -160,13 +145,21 @@ public class PlayerControl : MonoBehaviour {
         //Player Shoot (Click or Right Trigger)
         if (fire == 1)
         {
-            actions.playerFire(this);
+            //Find the players gun
+            GameObject playerGun;
+            playerGun = GameObject.Find("testWeapon_P1");
+
+            actions.playerFire(this, playerGun);
         }
 
         //Player Reload (Q or Right Bumper)
         if (reload == 1)
         {
-            actions.playerReload(this);
+            //Find the players gun
+            GameObject playerGun;
+            playerGun = GameObject.Find("testWeapon_P1");
+
+            actions.playerReload(this, playerGun);
         }
     }
 

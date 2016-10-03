@@ -1,47 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class bulletScript : MonoBehaviour
-{
-    public float bulletSpeed = 2.0f;
-    public int ownerID;
-
-
-    void Start()
-    {
-
+public class bulletScript : MonoBehaviour {
+    public float speed= 2.0f;
+    public aimDirection aiming;
+    float angle;
+    public GameObject bullet;
+    public GameObject gunBarrel;
+    
+    void Start () {
+        //aiming = GameObject.Find("Aim Direction").GetComponent<aimDirection>();
     }
-
+	
     void Update()
     {
-        Rigidbody2D bulletRigid = GetComponent<Rigidbody2D>();
-        bulletRigid.velocity = new Vector2(bulletSpeed, 0.0f);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+
+        //Rigidbody2D bulletRigid = GetComponent<Rigidbody2D>();
+        //bulletRigid.velocity = new Vector2(bulletSpeed, 0.0f);
+
+     
+
+
+
     }
-    void OnBecameInvisible()
+	void OnBecameInvisible()
     {
         Destroy(gameObject);
     }
-
-    void OnTriggerEnter2D(Collider2D col)
+    public class BaseGun
     {
-        
-        //Check if the bullet has collided with a player
-        if (col.tag == "Player")
-        {
-
-            int hitID = col.GetComponent<playerStats>().playerId; //Grab the ID of the player
-
-            //Check that the player hasn't hit themselves
-            if (hitID != ownerID)
-            {
-                //Call the die function on the targeted player
-                col.GetComponent<characterAction>().playerDie(ownerID);
-
-                //Remove the bullet
-                Destroy(gameObject);
-            }
-
-        }
+        public float fireRate;
+        public float reloadTime;
+        public float magSize;
+        public float distance;
+        public float spray;
+        public float speed;
+        public bool canBounce;
+        public bool isFiring;
     }
-
 }
