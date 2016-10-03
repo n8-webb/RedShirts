@@ -7,6 +7,9 @@ public class PlayerControl : MonoBehaviour {
 
     //Change these depending on what player it is in the inspector window
     public string jumpButton = "Jump_P1";
+    public string crouchButton = "Crouch_P1";
+    public string reloadButton = "Reload_P1";
+    public string fireCtrl = "Fire_P1";
     public string horizontalCtrl = "Horizontal_P1";
     public string playerJumpSprite = "player jump red";
     public string playerIdleSprite = "player idle red";
@@ -14,15 +17,25 @@ public class PlayerControl : MonoBehaviour {
     //Strength of the jump
     public int jumpPower = 150;
 
+    //Character Actions
+    public characterAction actions;
+
+
     //Values for the controller
     public float horizontal;
     public float jump;
+    public float crouch;
+    public float fire;
+    public float reload;
 
     //Allows raycast to ignore the player itself
     public LayerMask mask;
 
     //Is the player on the ground?
     public bool grounded;
+
+    //Is the player crouching?
+    public bool crouching;
 
     //Unity stuff
     Rigidbody2D rb2d;
@@ -40,6 +53,7 @@ public class PlayerControl : MonoBehaviour {
         playerSprite = GetComponent<SpriteRenderer>();
         jumpSprite = Resources.LoadAll<Sprite>(playerJumpSprite);
         idleSprite = Resources.LoadAll<Sprite>(playerIdleSprite);
+        actions = gameObject.AddComponent<characterAction>() as characterAction;
     }
 
     //Trigger stuff for the falling through platform on down press
@@ -91,6 +105,9 @@ public class PlayerControl : MonoBehaviour {
         //Fetches the values from the controller and keyboard presses
         horizontal = Input.GetAxis(horizontalCtrl);
         jump = Input.GetAxis(jumpButton);
+        crouch = Input.GetAxis(crouchButton);
+        reload = Input.GetAxis(reloadButton);
+        fire = Input.GetAxis(fireCtrl);
 
 
         //Adds force to the player's rigid body in the up direction
@@ -111,6 +128,39 @@ public class PlayerControl : MonoBehaviour {
             transform.position += Vector3.right * playerSpeed * Time.deltaTime;
         }
 
+
+        //Player crouch (E or B-Button)
+        if (crouch == 1 && !crouching)
+        {
+            actions.playerCrouch(this);
+        }
+
+        //Player stand
+        if (crouching && crouch != 1)
+        {
+            actions.playerStand(this);
+        }
+
+
+        //Player Shoot (Click or Right Trigger)
+        if (fire == 1)
+        {
+            //Find the players gun
+            GameObject playerGun;
+            playerGun = GameObject.Find("testWeapon_P1");
+
+            actions.playerFire(this, playerGun);
+        }
+
+        //Player Reload (Q or Right Bumper)
+        if (reload == 1)
+        {
+            //Find the players gun
+            GameObject playerGun;
+            playerGun = GameObject.Find("testWeapon_P1");
+
+            actions.playerReload(this, playerGun);
+        }
     }
 
 }

@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class characterAction : MonoBehaviour {
+public class characterAction : MonoBehaviour
+{
 
     public bool isAlive;
     public bool canDie;
     public bool crouching;
     public bool isReloading;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     // Called when spawning a player
     void playerSpawn()
@@ -31,20 +34,34 @@ public class characterAction : MonoBehaviour {
     }
 
     // Called when a player starts crouching
-    void playerCrouch()
+    public void playerCrouch(PlayerControl player)
     {
-        crouching = true;
+        player.crouching = true;
+        //Change player sprite here//
+
+
     }
 
     //Called when a player stops crouching
-    void playerStand()
+    public void playerStand(PlayerControl player)
     {
-        crouching = false;
+        player.crouching = false;
+        //Change player sprite here//
+
+
     }
 
     // Called when a player is reloading
-    void playerReload()
+    public void playerReload(PlayerControl player, GameObject gun)
     {
+        //Call guns reload action
+        //Change gun to reload sprite
+    }
 
+    // Called when a player fires
+    public void playerFire(PlayerControl player, GameObject gun)
+    {
+        //Call guns fire function
+        //Add visual fire effects
     }
 }
