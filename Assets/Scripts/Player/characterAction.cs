@@ -9,6 +9,8 @@ public class characterAction : MonoBehaviour
     public bool crouching;
     public bool isReloading;
 
+
+
     // Use this for initialization
     void Start()
     {
@@ -52,16 +54,19 @@ public class characterAction : MonoBehaviour
     }
 
     // Called when a player is reloading
-    public void playerReload(PlayerControl player, GameObject gun)
+    public void playerReload(PlayerControl player)
     {
         //Call guns reload action
         //Change gun to reload sprite
     }
 
     // Called when a player fires
-    public void playerFire(PlayerControl player, GameObject gun)
+    public void playerFire(PlayerControl player)
     {
-        //Call guns fire function
+        //Call weapons fire function
+        player.weapon.GetComponent<BaseGunClass>().fire(player);
+        
+
         //Add visual fire effects
     }
 }
