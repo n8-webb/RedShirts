@@ -108,8 +108,8 @@ public class characterAction : MonoBehaviour
     public void playerFire(PlayerControl player)
     {
         //Call weapons fire function
-        player.weapon.GetComponent<BaseGunClass>().fire(player);
-
+        //player.weapon.GetComponent<BaseGunClass>().fire(player);
+        player.weapon.GetComponent<Gun>().isFiring = true;
         //Add visual fire effects
     }
 }
