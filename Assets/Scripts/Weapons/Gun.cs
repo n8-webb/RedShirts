@@ -17,7 +17,7 @@ public class Gun : MonoBehaviour
     public float speed;
     public bool canBounce;
     private float nextShot = 0.0f;
-    public  float shotsRemaining;
+    public float shotsRemaining;
     public float currMagSize;
 
     public PlayerControl player;
@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
     void Update()
     {
 
-      
+
         if (isFiring == true && Time.time > nextShot)
         {
             //for (int i = 0; i < currMagSize; i++) 
@@ -39,33 +39,32 @@ public class Gun : MonoBehaviour
             //    print(i);
             //    if(i < currMagSize)
             //    {
-                    nextShot = Time.time + fireRate;
-                    bulletScript newBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation) as bulletScript;
-                    newBullet.transform.GetComponent<bulletScript>().ownerID = player.stats.playerId;
-                    newBullet.speed = bulletSpeed;
-                    //currMagSize = (currMagSize - 1.0f);
-                    
-                    //shotsRemaining = (currMagSize - i);
-                //}
-                //else if(i >= currMagSize)
-                //{
-                //    isFiring = false;
-                //    isReloading = true;
-                    
-                //    currMagSize = magSize;
-                //    nextShot = Time.time + reloadTime;
-                //    isReloading = false;
-                //    isFiring = true;
-                //    return;
-                    
-                //}
-                isFiring = false;
-            }
-            
-        }
+            nextShot = Time.time + fireRate;
+            bulletScript newBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation) as bulletScript;
+            newBullet.transform.GetComponent<bulletScript>().ownerID = player.stats.playerId;
+            newBullet.speed = bulletSpeed;
+            //currMagSize = (currMagSize - 1.0f);
 
+            //shotsRemaining = (currMagSize - i);
+            //}
+            //else if(i >= currMagSize)
+            //{
+            //    isFiring = false;
+            //    isReloading = true;
+
+            //    currMagSize = magSize;
+            //    nextShot = Time.time + reloadTime;
+            //    isReloading = false;
+            //    isFiring = true;
+            //    return;
+
+            //}
+            isFiring = false;
+        }
 
     }
 
+
+}
 
 

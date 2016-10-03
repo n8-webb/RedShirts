@@ -15,8 +15,8 @@ public class bulletScript : MonoBehaviour
 
     void Update()
     {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        }
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
+    }
     void OnBecameInvisible()
     {
         Destroy(gameObject);
