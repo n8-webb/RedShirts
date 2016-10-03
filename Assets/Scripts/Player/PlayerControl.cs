@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour {
     public string playerIdleSprite = "player idle red";
 
     //Strength of the jump
-    public int jumpPower = 300;
+    public int jumpPower = 150;
 
     //Values for the controller
     public float horizontal;
