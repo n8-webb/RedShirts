@@ -42,7 +42,7 @@ public class bulletScript : MonoBehaviour
             }
 
         }
-        else if (col.tag == "Platform")
+        else if (col.tag == "Platform" || col.tag == "Level")
         {
             //Remove the bullet if it collides with a platform
             Destroy(gameObject);
