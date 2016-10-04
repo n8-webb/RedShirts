@@ -30,8 +30,6 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-
-
         if (isFiring == true && Time.time > nextShot)
         {
             //for (int i = 0; i < currMagSize; i++) 
@@ -39,10 +37,13 @@ public class Gun : MonoBehaviour
             //    print(i);
             //    if(i < currMagSize)
             //    {
+
+            //Commenting out nextShot lets you fire forever, but you can shoot a single bullet if you flick the RT
             nextShot = Time.time + fireRate;
             bulletScript newBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation) as bulletScript;
             newBullet.transform.GetComponent<bulletScript>().ownerID = player.stats.playerId;
             newBullet.speed = bulletSpeed;
+
             //currMagSize = (currMagSize - 1.0f);
 
             //shotsRemaining = (currMagSize - i);
@@ -57,7 +58,6 @@ public class Gun : MonoBehaviour
             //    isReloading = false;
             //    isFiring = true;
             //    return;
-
             //}
             isFiring = false;
         }

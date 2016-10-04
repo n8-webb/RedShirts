@@ -24,12 +24,11 @@ public class bulletScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
         //Check if the bullet has collided with a player
         if (col.tag == "Player")
         {
-
-            int hitID = col.GetComponent<playerStats>().playerId; //Grab the ID of the player
+            //Grab the ID of the player
+            int hitID = col.GetComponent<playerStats>().playerId;
 
             //Check that the player hasn't hit themselves
             if (hitID != ownerID)
@@ -40,7 +39,6 @@ public class bulletScript : MonoBehaviour
                 //Remove the bullet
                 Destroy(gameObject);
             }
-
         }
         else if (col.tag == "Platform" || col.tag == "Level")
         {
