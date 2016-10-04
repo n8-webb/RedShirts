@@ -76,7 +76,10 @@ public class characterAction : MonoBehaviour
         isAlive = false;
         Debug.Log("I am Player (" + transform.GetComponent<playerStats>().playerId + ") and have been killed by Player (" + killerID + ")");
         transform.position = new Vector3(100, -10, 0);
-        playerDeaths++;       
+        playerDeaths++;
+
+        //Find score manager and give the killer player 100 points (killerID - 1 because of 0 index)
+        GameObject.Find("Canvas").transform.GetComponent<ScoreManager>().addScore(killerID - 1, 100);
     }
 
     // Called when a player starts crouching

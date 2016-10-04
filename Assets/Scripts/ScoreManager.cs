@@ -25,6 +25,7 @@ public class ScoreManager : MonoBehaviour
         {
             instance = this;
         }
+
     }
 
 
@@ -60,5 +61,12 @@ public class ScoreManager : MonoBehaviour
             playersScores[3] = score;
             playersUI[3].text = playersScores[0].ToString();
         }
+    }
+
+    //Adds one to player score of ID (uses 0 index)
+    public void addScore(int playerId, int points)
+    {
+        playersScores[playerId] = playersScores[playerId] + points;
+        playersUI[playerId].text = playersScores[0].ToString();
     }
 }
