@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     public bulletScript bullet;
     public float bulletSpeed;
     public Transform shootPoint;
-    public float fireRate;
+    public float fireRate = 0.3f;
     public float reloadTime;
     public float magSize;
     public float distance;

@@ -45,6 +45,9 @@ public class PlayerControl : MonoBehaviour {
 
     //Is the player crouching?
     public bool crouching;
+    private bool hasShot = false;
+    private float delay = 0.0f;
+    
 
     //Unity stuff
     Rigidbody2D rb2d;
@@ -160,9 +163,19 @@ public class PlayerControl : MonoBehaviour {
         //Player Shoot (Click or Right Trigger)
         if (fire == 1)
         {
-            actions.playerFire(this);
+            if(Time.time > delay)
+            {
+                delay = Time.time + weapon.GetComponent<Gun>().fireRate;
+                print(fire);
+                fire = 0;
+
+                actions.playerFire(this);
+            }
+            
         }
 
+        
+        
         //Player Reload (Q or Right Bumper)
         if (reload == 1)
         {
