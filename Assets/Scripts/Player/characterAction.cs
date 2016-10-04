@@ -9,14 +9,16 @@ public class characterAction : MonoBehaviour
     public bool crouching;
     public bool isReloading;
     public int playerDeaths;
-    public float deathTimer = 5.0f;
+    public float deathTimer = 2.0f;
+    //CameraShake shake;
+    //public book alive;
 
     float timer = 0.0f;
 
     GameObject respawnLocationObject;
     GameObject weaponSpriteObject;
     GameObject playerObject;
-
+    //GameObject Camera;
 
 
     // Use this for initialization
@@ -24,6 +26,11 @@ public class characterAction : MonoBehaviour
     {
         isAlive = true;
         playerObject = GameObject.Find("testplayer_P1");
+
+        /*Camera = GameObject.Find("Main Camera");
+        shake = gameObject.GetComponent<CameraShake>();
+        shake.enabled = false;*/
+
         switch (transform.GetComponent<playerStats>().playerId)
         {
             case 1:
@@ -52,7 +59,7 @@ public class characterAction : MonoBehaviour
         if (isAlive == false)
         {
             timer += Time.deltaTime;
-
+            //shake.enable = true;
             if (timer >= deathTimer)
             {
                 Debug.Log(playerObject.transform.position);
@@ -60,6 +67,7 @@ public class characterAction : MonoBehaviour
                 playerObject.transform.position = respawnLocationObject.transform.position;
                 timer = 0.0f;
                 isAlive = true;
+                //shake.enable = false;
             }
         }
     }
