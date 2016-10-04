@@ -20,6 +20,7 @@ public class activatePlayer : MonoBehaviour {
         activated = false;
 
         scoreText.text = "PRESS START";
+        scoreText.fontSize = 20;
 
 	}
 	
@@ -33,7 +34,7 @@ public class activatePlayer : MonoBehaviour {
             player.SetActive(true);
             activated = true;
             scoreText.text = "0";
-
+            scoreText.fontSize = 28;
         }
 
     }
