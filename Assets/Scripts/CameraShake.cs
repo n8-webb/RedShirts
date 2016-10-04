@@ -21,17 +21,21 @@ public class CameraShake : MonoBehaviour
         //  shakeCamera(0.1f, 1.0f); //power, duration
         // }
 
-        if (shakeTimer >= 0)
-        {
-            Vector2 shakePosition = Random.insideUnitCircle * shakeIntesity; //Circle that has a 1 unit radius and picks a random x,y value that the camera moves to
-            transform.position = new Vector3(transform.position.x + shakePosition.x, transform.position.y + shakePosition.y, transform.position.z); //updates camera position with the insideUnitCircle offset
-            shakeTimer -= Time.deltaTime;
-        }
-        if (shakeTimer <= 0)
-        {
-            transform.position = cameraStartPos;
+        // ========================================== //
+        // UNCOMMENT ALL BELOW TO ENABLE SCREEN SHAKE //
+        // ========================================== //
 
-        }
+        //if (shakeTimer >= 0)
+        //{
+        //    Vector2 shakePosition = Random.insideUnitCircle * shakeIntesity; //Circle that has a 1 unit radius and picks a random x,y value that the camera moves to
+        //    transform.position = new Vector3(transform.position.x + shakePosition.x, transform.position.y + shakePosition.y, transform.position.z); //updates camera position with the insideUnitCircle offset
+        //    shakeTimer -= Time.deltaTime;
+        //}
+        //if (shakeTimer <= 0)
+        //{
+        //    transform.position = cameraStartPos;
+
+        //}
     }
 
     public void shakeCamera(float shakePower, float shakeDuration)
