@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using XInputDotNetPure;
 
 public class characterAction : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class characterAction : MonoBehaviour
     public bool crouching;
     public bool isReloading;
     public int playerDeaths;
-    public float deathTimer = 2.0f;
+    public float deathTimer = 5.0f;
     //CameraShake shake;
     //public book alive;
 
@@ -19,9 +18,14 @@ public class characterAction : MonoBehaviour
     GameObject respawnLocationObject;
     GameObject weaponSpriteObject;
     GameObject playerObject;
-    //GameObject Camera;
 
-    playerStats stats;
+    //ParticleSystem bloodEmitter;
+    SpriteRenderer playerSprite;
+    SpriteRenderer gunSprite;
+    BoxCollider2D playerBoxCollider;
+    PolygonCollider2D playerPolyCollider;
+    Rigidbody2D playerRigidbody;
+    //GameObject Camera;
 
 
     // Use this for initialization
@@ -29,8 +33,7 @@ public class characterAction : MonoBehaviour
     {
         isAlive = true;
         playerObject = GameObject.Find("testplayer_P1");
-        stats = GetComponent<playerStats>();
-
+        
         /*Camera = GameObject.Find("Main Camera");
         shake = gameObject.GetComponent<CameraShake>();
         shake.enabled = false;*/
@@ -40,25 +43,36 @@ public class characterAction : MonoBehaviour
             case 1:
                 respawnLocationObject = GameObject.Find("respawnLocation_P1");
                 playerObject = GameObject.Find("testPlayer_P1");
+                weaponSpriteObject = GameObject.Find("weaponSprite_P1");
                 break;
             case 2:
                 respawnLocationObject = GameObject.Find("respawnLocation_P2");
                 playerObject = GameObject.Find("testPlayer_P2");
+                weaponSpriteObject = GameObject.Find("weaponSprite_P2");
                 break;
             case 3:
                 respawnLocationObject = GameObject.Find("respawnLocation_P3");
                 playerObject = GameObject.Find("testPlayer_P3");
+                weaponSpriteObject = GameObject.Find("weaponSprite_P3");
                 break;
             case 4:
                 respawnLocationObject = GameObject.Find("respawnLocation_P4");
                 playerObject = GameObject.Find("testPlayer_P4");
+                weaponSpriteObject = GameObject.Find("weaponSprite_P4");
                 break;
         }
+
+        playerSprite = playerObject.GetComponent<SpriteRenderer>();
+        playerBoxCollider = playerObject.GetComponent<BoxCollider2D>();
+        playerPolyCollider = playerObject.GetComponent<PolygonCollider2D>();
+        gunSprite = weaponSpriteObject.GetComponent<SpriteRenderer>();
+        playerRigidbody = playerObject.GetComponent<Rigidbody2D>();
+        //bloodEmitter = playerObject.GetComponentInChildren<ParticleSystem>();
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isAlive == false)
         {
@@ -66,11 +80,18 @@ public class characterAction : MonoBehaviour
             //shake.enable = true;
             if (timer >= deathTimer)
             {
+                //bloodEmitter.Clear();
                 Debug.Log(playerObject.transform.position);
                 Debug.Log(respawnLocationObject.transform.position);
                 playerObject.transform.position = respawnLocationObject.transform.position;
+                playerSprite.enabled = true;
+                gunSprite.enabled = true;
+                playerBoxCollider.enabled = true;
+                playerPolyCollider.enabled = true;
+                playerRigidbody.gravityScale = 1;
                 timer = 0.0f;
                 isAlive = true;
+                
                 //shake.enable = false;
             }
         }
@@ -85,24 +106,20 @@ public class characterAction : MonoBehaviour
     // Called when a player dies
     public void playerDie(int killerID)
     {
+        //bloodEmitter.Emit(250);       
         isAlive = false;
         Debug.Log("I am Player (" + transform.GetComponent<playerStats>().playerId + ") and have been killed by Player (" + killerID + ")");
-        transform.position = new Vector3(100, -10, 0);
+        playerSprite.enabled = false;
+        gunSprite.enabled = false;
+        playerBoxCollider.enabled = false;
+        playerPolyCollider.enabled = false;
+        playerRigidbody.gravityScale = 0;
         playerDeaths++;
 
         //Find score manager and give the killer player 100 points, subtract the killed 50 points
         ScoreManager scoreManager = GameObject.Find("Canvas").transform.GetComponent<ScoreManager>();
         scoreManager.addScore(killerID - 1, 100);
         scoreManager.subtractScore(transform.GetComponent<playerStats>().playerId - 1, 50);
-
-        CameraShake shake = GameObject.Find("Main Camera").transform.GetComponent<CameraShake>();
-        shake.shakeCamera(0.03f, 0.5f);
-
-
-        //Start vibraing and enable timer so vibration stops
-        GamePad.SetVibration((PlayerIndex)stats.playerId - 1, 0.5f, 0.5f);
-        stats.vibrating = true;
-        stats.vibrateTime = 0.5f;
     }
 
     // Called when a player starts crouching
@@ -137,10 +154,5 @@ public class characterAction : MonoBehaviour
         //player.weapon.GetComponent<BaseGunClass>().fire(player);
         player.weapon.GetComponent<Gun>().isFiring = true;
         //Add visual fire effects
-
-        //Start vibraing and enable timer so vibration stops
-        GamePad.SetVibration((PlayerIndex)stats.playerId - 1, 1.0f, 1.0f);
-        stats.vibrating = true;
-        stats.vibrateTime = 0.1f;
     }
 }
