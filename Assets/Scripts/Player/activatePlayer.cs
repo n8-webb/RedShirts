@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class activatePlayer : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class activatePlayer : MonoBehaviour {
     public float activateValue;
     GameObject player;
 
+    public Text scoreText;
 
     // Use this for initialization
     void Start () {
@@ -16,6 +18,8 @@ public class activatePlayer : MonoBehaviour {
         player = GameObject.Find(playerToActivate);
         player.SetActive(false);
         activated = false;
+
+        scoreText.text = "PRESS START";
 
 	}
 	
@@ -28,7 +32,7 @@ public class activatePlayer : MonoBehaviour {
         {
             player.SetActive(true);
             activated = true;
-
+            scoreText.text = "0";
 
         }
 

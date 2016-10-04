@@ -21,5 +21,7 @@ public class playerStats : MonoBehaviour
     public bool alive;
     public bool grounded;
     public bool crouching;
+    public bool vibrating;
+    public float vibrateTime;
 
 }

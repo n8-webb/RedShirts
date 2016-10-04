@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class characterAction : MonoBehaviour
 {
@@ -20,12 +21,15 @@ public class characterAction : MonoBehaviour
     GameObject playerObject;
     //GameObject Camera;
 
+    playerStats stats;
+
 
     // Use this for initialization
     void Start()
     {
         isAlive = true;
         playerObject = GameObject.Find("testplayer_P1");
+        stats = GetComponent<playerStats>();
 
         /*Camera = GameObject.Find("Main Camera");
         shake = gameObject.GetComponent<CameraShake>();
@@ -90,6 +94,15 @@ public class characterAction : MonoBehaviour
         ScoreManager scoreManager = GameObject.Find("Canvas").transform.GetComponent<ScoreManager>();
         scoreManager.addScore(killerID - 1, 100);
         scoreManager.subtractScore(transform.GetComponent<playerStats>().playerId - 1, 50);
+
+        CameraShake shake = GameObject.Find("Main Camera").transform.GetComponent<CameraShake>();
+        shake.shakeCamera(0.03f, 0.5f);
+
+
+        //Start vibraing and enable timer so vibration stops
+        GamePad.SetVibration((PlayerIndex)stats.playerId - 1, 0.5f, 0.5f);
+        stats.vibrating = true;
+        stats.vibrateTime = 0.5f;
     }
 
     // Called when a player starts crouching
@@ -124,5 +137,10 @@ public class characterAction : MonoBehaviour
         //player.weapon.GetComponent<BaseGunClass>().fire(player);
         player.weapon.GetComponent<Gun>().isFiring = true;
         //Add visual fire effects
+
+        //Start vibraing and enable timer so vibration stops
+        GamePad.SetVibration((PlayerIndex)stats.playerId - 1, 1.0f, 1.0f);
+        stats.vibrating = true;
+        stats.vibrateTime = 0.1f;
     }
 }

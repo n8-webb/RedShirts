@@ -24,18 +24,15 @@ public class movingPlatform : MonoBehaviour {
         if (movingToDestination == true)
         {
             transform.position += Vector3.down * platformSpeed * Time.deltaTime;
-            Debug.Log("Moving down");
         }
 
         else
         {
             transform.position += Vector3.up * platformSpeed * Time.deltaTime;
-            Debug.Log("Moving up");
         }
         
         if (transform.position.y <= platformDestination.y)
         {
-            Debug.Log("Arrived at destination");
             movingToDestination = false;
         }
 

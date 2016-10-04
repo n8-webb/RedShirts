@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -180,6 +181,19 @@ public class PlayerControl : MonoBehaviour {
         if (reload == 1)
         {
             actions.playerReload(this);
+        }
+
+
+        //If vibrating is enabled tick the timer
+        if (stats.vibrating)
+        {
+            //If there is no vibration time left stop vibration
+            if (stats.vibrateTime <= 0)
+            {
+                GamePad.SetVibration((PlayerIndex)stats.playerId - 1, 0.0f, 0.0f);
+                stats.vibrating = false;
+            }
+            stats.vibrateTime -= Time.deltaTime;
         }
     }
 
