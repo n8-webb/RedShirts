@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Level\levelLoader.cs" />
      <Compile Include="Assets\Scripts\Level\movingPlatform.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
+     <Compile Include="Assets\Scripts\Player\activatePlayer.cs" />
      <Compile Include="Assets\Scripts\Player\aimDirection.cs" />
      <Compile Include="Assets\Scripts\Player\characterAction.cs" />
      <Compile Include="Assets\Scripts\Player\playerStats.cs" />
