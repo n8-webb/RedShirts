@@ -78,8 +78,10 @@ public class characterAction : MonoBehaviour
         transform.position = new Vector3(100, -10, 0);
         playerDeaths++;
 
-        //Find score manager and give the killer player 100 points (killerID - 1 because of 0 index)
-        GameObject.Find("Canvas").transform.GetComponent<ScoreManager>().addScore(killerID - 1, 100);
+        //Find score manager and give the killer player 100 points, subtract the killed 50 points
+        ScoreManager scoreManager = GameObject.Find("Canvas").transform.GetComponent<ScoreManager>();
+        scoreManager.addScore(killerID - 1, 100);
+        scoreManager.subtractScore(transform.GetComponent<playerStats>().playerId - 1, 50);
     }
 
     // Called when a player starts crouching

@@ -63,10 +63,17 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    //Adds one to player score of ID (uses 0 index)
+    //Adds points to player score of ID (uses 0 index)
     public void addScore(int playerId, int points)
     {
         playersScores[playerId] = playersScores[playerId] + points;
-        playersUI[playerId].text = playersScores[0].ToString();
+        playersUI[playerId].text = playersScores[playerId].ToString();
+    }
+
+    //Subtracts points from player score of ID (uses 0 index)
+    public void subtractScore(int playerId, int points)
+    {
+        playersScores[playerId] = playersScores[playerId] - points;
+        playersUI[playerId].text = playersScores[playerId].ToString();
     }
 }
