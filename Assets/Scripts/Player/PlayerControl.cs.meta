@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: 2080dc294424fda4dbb3be03e226942f
-timeCreated: 1475070677
-licenseType: Pro
+timeCreated: 1475607770
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - actions: {instanceID: 0}
+  - stats: {instanceID: 0}
+  - weapon: {instanceID: 0}
+  - bullet: {instanceID: 0}
+  - prefabPS: {fileID: 123152, guid: 81b6ca0974d08f1479f0458b0d574f6b, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

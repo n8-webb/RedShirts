@@ -19,7 +19,6 @@ public class characterAction : MonoBehaviour
     GameObject weaponSpriteObject;
     GameObject playerObject;
 
-    //ParticleSystem bloodEmitter;
     SpriteRenderer playerSprite;
     SpriteRenderer gunSprite;
     BoxCollider2D playerBoxCollider;
@@ -67,7 +66,6 @@ public class characterAction : MonoBehaviour
         playerPolyCollider = playerObject.GetComponent<PolygonCollider2D>();
         gunSprite = weaponSpriteObject.GetComponent<SpriteRenderer>();
         playerRigidbody = playerObject.GetComponent<Rigidbody2D>();
-        //bloodEmitter = playerObject.GetComponentInChildren<ParticleSystem>();
 
     }
 
@@ -80,7 +78,6 @@ public class characterAction : MonoBehaviour
             //shake.enable = true;
             if (timer >= deathTimer)
             {
-                //bloodEmitter.Clear();
                 Debug.Log(playerObject.transform.position);
                 Debug.Log(respawnLocationObject.transform.position);
                 playerObject.transform.position = respawnLocationObject.transform.position;
@@ -106,7 +103,6 @@ public class characterAction : MonoBehaviour
     // Called when a player dies
     public void playerDie(int killerID)
     {
-        //bloodEmitter.Emit(250);       
         isAlive = false;
         Debug.Log("I am Player (" + transform.GetComponent<playerStats>().playerId + ") and have been killed by Player (" + killerID + ")");
         playerSprite.enabled = false;
@@ -117,7 +113,7 @@ public class characterAction : MonoBehaviour
         playerDeaths++;
 
         //Find score manager and give the killer player 100 points, subtract the killed 50 points
-        ScoreManager scoreManager = GameObject.Find("Canvas").transform.GetComponent<ScoreManager>();
+        ScoreManager scoreManager = GameObject.Find("ScoreCanvas").transform.GetComponent<ScoreManager>();
         scoreManager.addScore(killerID - 1, 100);
         scoreManager.subtractScore(transform.GetComponent<playerStats>().playerId - 1, 50);
     }

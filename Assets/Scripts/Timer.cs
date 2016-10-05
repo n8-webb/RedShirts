@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 
     public float timeLeft = 30.0f;
     public Text timeText;
+
     //Need scenemanagment script
 
     // Use this for initialization
@@ -24,6 +25,7 @@ public class Timer : MonoBehaviour
             timeText.text = timeLeft.ToString("F2"); //Formats the timer to 00:00
             //RoundEnd();
         }
+
     }
 
     void RoundEnd() //Called when the timer reaches 0

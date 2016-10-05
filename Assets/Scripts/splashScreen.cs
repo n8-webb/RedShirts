@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class splashScreen : MonoBehaviour {
 
@@ -16,6 +17,6 @@ public class splashScreen : MonoBehaviour {
     }
 
     void OnMouseDown()    {
-        Application.LoadLevel('1');
+        SceneManager.LoadScene("levelOneScene");
     }
 }

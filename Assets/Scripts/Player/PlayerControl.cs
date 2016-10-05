@@ -48,7 +48,9 @@ public class PlayerControl : MonoBehaviour {
     public bool crouching;
     private bool hasShot = false;
     private float delay = 0.0f;
-    
+    public GameObject prefabPS;
+    public Object bloodSystem;
+    bool playerBleeding;
 
     //Unity stuff
     Rigidbody2D rb2d;
@@ -56,6 +58,7 @@ public class PlayerControl : MonoBehaviour {
     SpriteRenderer playerSprite;
     Sprite[] jumpSprite;
     Sprite[] idleSprite;
+    
 
     // Use this for initialization
     void Start () {
@@ -104,6 +107,22 @@ public class PlayerControl : MonoBehaviour {
 
     void FixedUpdate()
     {
+
+        if (playerSprite.enabled == false)
+        {            
+            if (bloodSystem == null)
+            {
+                //bloodSystem = Instantiate(prefabPS, transform.position, transform.rotation);
+            }
+        }
+        else
+        {
+            if (bloodSystem != null)
+            {
+                Destroy(bloodSystem);
+            }     
+        }
+
         //Casts a raycast ignoring the player to check if grounded
         if (Physics2D.Raycast(transform.position, -Vector2.up, 1.0f, mask))
         {

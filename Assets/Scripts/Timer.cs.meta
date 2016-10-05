@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 986832ca6ac3d8c48aac9499bb1267ce
-timeCreated: 1475490671
-licenseType: Pro
+timeCreated: 1475617758
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - timeText: {instanceID: 0}
+  - leaderboard: {fileID: 22380808, guid: 9ca32745edfc5e04a90c65eb32e82696, type: 2}
+  - scores: {fileID: 22393204, guid: ff8e318f9c500e0459d7d50196987747, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
