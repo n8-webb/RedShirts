@@ -13,6 +13,8 @@ public class ScoreManager : MonoBehaviour
     [Header("Player Scores")]
     public int[] playersScores;
 
+    public Text[] playerScoreBoard;
+
 
     // Use this for initialization
     void Awake()
@@ -42,24 +44,28 @@ public class ScoreManager : MonoBehaviour
         {
             playersScores[0] = score;
             playersUI[0].text = playersScores[0].ToString();
+            playerScoreBoard[0].text = playersScores[0].ToString();
         }
 
         if (playerId == 2)
         {
             playersScores[1] = score;
             playersUI[1].text = playersScores[0].ToString();
+            playerScoreBoard[1].text = playersScores[0].ToString();
         }
 
         if (playerId == 3)
         {
             playersScores[2] = score;
             playersUI[2].text = playersScores[0].ToString();
+            playerScoreBoard[2].text = playersScores[0].ToString();
         }
 
         if (playerId == 4)
         {
             playersScores[3] = score;
             playersUI[3].text = playersScores[0].ToString();
+            playerScoreBoard[3].text = playersScores[0].ToString();
         }
     }
 
@@ -68,6 +74,7 @@ public class ScoreManager : MonoBehaviour
     {
         playersScores[playerId] = playersScores[playerId] + points;
         playersUI[playerId].text = playersScores[playerId].ToString();
+        playerScoreBoard[playerId].text = playersScores[playerId].ToString();
     }
 
     //Subtracts points from player score of ID (uses 0 index)
@@ -75,5 +82,6 @@ public class ScoreManager : MonoBehaviour
     {
         playersScores[playerId] = playersScores[playerId] - points;
         playersUI[playerId].text = playersScores[playerId].ToString();
+        playerScoreBoard[playerId].text = playersScores[playerId].ToString();
     }
 }

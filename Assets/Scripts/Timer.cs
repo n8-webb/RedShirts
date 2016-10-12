@@ -23,7 +23,7 @@ public class Timer : MonoBehaviour
         if (timeLeft > 0)
         {
             timeText.text = timeLeft.ToString("F2"); //Formats the timer to 00:00
-            //RoundEnd();
+            RoundEnd();
         }
         else
         {
